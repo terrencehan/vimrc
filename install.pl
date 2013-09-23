@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+#terrencehan (isterrence@gmail.com)
+
 use strict;
 use warnings;
 use File::Copy;
