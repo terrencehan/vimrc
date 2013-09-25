@@ -13,6 +13,7 @@ Bundle 'AutoClose'
 Bundle 'ZenCoding.vim'
 Bundle 'matchit.zip'
 Bundle 'Tabular'
+map <leader>tb :Tabularize /=
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'spiiph/vim-space'
 Bundle 'terryma/vim-multiple-cursors'
