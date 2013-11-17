@@ -1,3 +1,6 @@
+"修改leader键为逗号
+let mapleader=","
+
 "Vundle Settings
 filetype off              "必须的设置：
 
@@ -48,10 +51,14 @@ Bundle 'The-NERD-tree'
 
 Bundle 'The-NERD-Commenter'
 
-Bundle 'UltiSnips'
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"Bundle 'UltiSnips'
+"let g:UltiSnipsExpandTrigger="<c-j>"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
 
 "放置在Bundle的设置后，防止意外BUG
 filetype plugin indent on
@@ -115,8 +122,6 @@ inoremap <c-k> <up>
 inoremap <c-l> <right>
 inoremap <c-h> <left>
 
-"修改leader键为逗号
-let mapleader=","
 
 "-----------------------------------------
 "首先确认安装了ctags和cscope，并且确认这两个可执行程序所在的目录已经放进环境变量里面。（必须做，否则后边都无法操作）
