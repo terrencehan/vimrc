@@ -16,6 +16,7 @@ Bundle 'AutoClose'
 Bundle 'ZenCoding.vim'
 Bundle 'matchit.zip'
 Bundle 'Tabular'
+Bundle 'gregsexton/gitv'
 map <leader>tb :Tabularize /=
 "Bundle 'Valloric/YouCompleteMe'
 "Bundle 'spiiph/vim-space'
@@ -225,6 +226,7 @@ map <c-h> ,c<space>
 "----------------------------------------
 set tags=tags
 set tags+=./tags
+autocmd FileType erlang set tags+=../tags
 autocmd FileType c,cpp set tags+=/usr/include/tags
 
 "-----------------------------------------
@@ -302,4 +304,16 @@ let wiki.template_default= 'default'
 let wiki.template_ext= '.html'
 let g:vimwiki_list = [wiki]
 nmap <leader>tt <Plug>VimwikiToggleListItem
+
+"-----------------------------------------
+"vim 标签移动快捷键
+"-----------------------------------------
+nmap 11 1gt
+nmap 22 2gt
+nmap 33 3gt
+nmap 44 4gt
+nmap 55 5gt
+nmap 66 6gt
+nmap 77 7gt
+nmap 88 8gt
 
