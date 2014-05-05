@@ -11,11 +11,14 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+Bundle 'ianva/vim-youdao-translater'
+
 Bundle 'ctrlp.vim'
 Bundle 'AutoClose'
 Bundle 'ZenCoding.vim'
 Bundle 'matchit.zip'
 Bundle 'Tabular'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'gregsexton/gitv'
 map <leader>tb :Tabularize /=
 "Bundle 'Valloric/YouCompleteMe'
@@ -24,8 +27,9 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'trailing-whitespace'
 Bundle 'perl-support.vim'
 Bundle 'taglist.vim'
-Bundle 'Vimerl'
+Bundle 'jimenezrick/vimerl'
 Bundle 'vimwiki'
+Bundle 'tpope/vim-fugitive'
 
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup=1
@@ -98,12 +102,12 @@ set cindent
 set fdm=indent                                      "代码折叠
 set fileencodings=utf-8,gb2312,gbk,gb18030
 set termencoding=utf-8
-set fileformats=unix
+set fileformats=unix,dos
 set encoding=utf-8
 set colorcolumn=85                                  "彩色显示第85行
 set isk+=-                                          "将-连接符也设置为单词
 
-set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s   "设置C/C++语言的具体缩进方式
+"set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s   "设置C/C++语言的具体缩进方式
 set shiftwidth=4                                        "自动缩进的宽度
 set smartindent                                         "开启新行时使用智能自动缩进
 set expandtab                                           "使用空格代替tab.
@@ -199,7 +203,7 @@ inoremap <c-h> <left>
 "TlistUpdate可以更新tags
 "-----------------------------------------
 "map <F3> :silent! Tlist<CR>        "按下F3就可以呼出了
-let Tlist_Ctags_Cmd='ctags'         "因为我们放在环境变量里，所以可以直接执行
+let Tlist_Ctags_Cmd='/usr/local/bin/ctags'         "因为我们放在环境变量里，所以可以直接执行
 let Tlist_Use_Right_Window=0        "让窗口显示在右边，0的话就是显示在左边
 let Tlist_Show_One_File=0           "让taglist可以同时展示多个文件的函数列表，如果想只有1个，设置为1
 let Tlist_File_Fold_Auto_Close=1    "非当前文件，函数列表折叠隐藏
@@ -317,3 +321,63 @@ nmap 66 6gt
 nmap 77 7gt
 nmap 88 8gt
 
+"-----------------------------------------
+"Powerline
+"-----------------------------------------
+set laststatus=2
+let g:Powerline_symbols='unicode'
+let g:Powerline_stl_path_style = 'short'
+
+
+"-----------------------------------------
+"Youdao
+"-----------------------------------------
+noremap <leader>yd :Yde<CR>
+
+
+"-----------------------------------------
+"在tab中显示数字编号
+"-----------------------------------------
+if exists("+showtabline")
+    function! MyTabLine()
+        let s = ''
+        let wn = ''
+        let t = tabpagenr()
+        let i = 1
+        while i <= tabpagenr('$')
+            let buflist = tabpagebuflist(i)
+            let winnr = tabpagewinnr(i)
+            let s .= '%' . i . 'T'
+            let s .= (i == t ? '%1*' : '%2*')
+            let s .= ' '
+            let wn = tabpagewinnr(i,'$')
+
+            let s .= '%#TabNum#'
+            let s .= i
+            " let s .= '%*'
+            let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+            let bufnr = buflist[winnr - 1]
+            let file = bufname(bufnr)
+            let buftype = getbufvar(bufnr, 'buftype')
+            if buftype == 'nofile'
+                if file =~ '\/.'
+                    let file = substitute(file, '.*\/\ze.', '', '')
+                endif
+            else
+                let file = fnamemodify(file, ':p:t')
+            endif
+            if file == ''
+                let file = '[No Name]'
+            endif
+            let s .= ' ' . file . ' '
+            let i = i + 1
+        endwhile
+        let s .= '%T%#TabLineFill#%='
+        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
+        return s
+    endfunction
+    set stal=2
+    set tabline=%!MyTabLine()
+    set showtabline=1
+    highlight link TabNum Special
+endif
