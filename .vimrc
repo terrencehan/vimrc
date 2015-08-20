@@ -11,17 +11,25 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
+Bundle 'dag/vim2hs'
+"Bundle 'scrooloose/syntastic'
+
 Bundle 'ianva/vim-youdao-translater'
 
+Bundle 'plasticboy/vim-markdown'
+Bundle 'mileszs/ack.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'terrencehan/rust-vim'
 Bundle 'ctrlp.vim'
 Bundle 'AutoClose'
 Bundle 'ZenCoding.vim'
 Bundle 'matchit.zip'
 Bundle 'Tabular'
+Bundle 'vim-scripts/DrawIt'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'gregsexton/gitv'
 map <leader>tb :Tabularize /=
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 "Bundle 'spiiph/vim-space'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'trailing-whitespace'
@@ -30,13 +38,14 @@ Bundle 'taglist.vim'
 Bundle 'jimenezrick/vimerl'
 Bundle 'vimwiki'
 Bundle 'tpope/vim-fugitive'
+Bundle 'rdnetto/YCM-Generator'
 
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
 
-Bundle '_jsbeautify'
-nnoremap <leader>_ff :call g:Jsbeautify()<CR>
+"Bundle '_jsbeautify'
+"nnoremap <leader>_ff :call g:Jsbeautify()<CR>
 
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key = '<Leader><Leader>'
@@ -46,7 +55,9 @@ let g:EasyMotion_leader_key = '<Leader><Leader>'
 "let g:fencview_autodetect=1
 
 Bundle 'The-NERD-tree'
-"nmap <leader>nt :NERDTree<cr>:set rnu<cr>
+Bundle 'jistr/vim-nerdtree-tabs'
+nmap <leader>nt :NERDTreeTabsToggle<cr>
+"nmap <leader>nt :NERDTreeTabsToggle<cr>:set rnu<cr>
 "let NERDTreeShowBookmarks=1
 "let NERDTreeShowFiles=1
 "let NERDTreeShowHidden=1
@@ -92,20 +103,20 @@ set incsearch                                       "在输入要搜索的文字
 set backspace=indent,eol,start whichwrap+=<,>,[,]   "允许退格键的使用
 syntax enable
 set background=dark
-set number                                          "显示行号
+set nonumber                                        "显示行号
 set history=1000                                    "记录历史的行数
 set cursorline                                      "突出显示当前行
 "set cursorcolumn                                   "列高亮
 "set autoindent
 set cindent
 " set foldmethod
-set fdm=indent                                      "代码折叠
+"set fdm=indent                                      "代码折叠
 set fileencodings=utf-8,gb2312,gbk,gb18030
 set termencoding=utf-8
 set fileformats=unix,dos
 set encoding=utf-8
 set colorcolumn=85                                  "彩色显示第85行
-set isk+=-                                          "将-连接符也设置为单词
+"set isk+=-                                          "将-连接符也设置为单词
 
 "set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s   "设置C/C++语言的具体缩进方式
 set shiftwidth=4                                        "自动缩进的宽度
@@ -126,6 +137,8 @@ inoremap <c-j> <down>
 inoremap <c-k> <up>
 inoremap <c-l> <right>
 inoremap <c-h> <left>
+
+map <leader>tl :Tlist<cr>
 
 
 "-----------------------------------------
