@@ -347,6 +347,21 @@ let g:Powerline_stl_path_style = 'short'
 "-----------------------------------------
 noremap <leader>yd :Yde<CR>
 
+"-----------------------------------------
+""YouCompleteMe
+"-----------------------------------------
+
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"Do not ask when starting vim
+let g:ycm_confirm_extra_conf = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+"当离开insert mode的时候如果prv buffer开着就关掉
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
 
 "-----------------------------------------
 "在tab中显示数字编号
