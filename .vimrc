@@ -11,16 +11,28 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-Bundle 'dag/vim2hs'
-"Bundle 'scrooloose/syntastic'
+Bundle 'ryanss/vim-hackernews'
+Bundle 'junegunn/vim-journal'
+Bundle 'junegunn/goyo.vim'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'mhinz/vim-startify'
 
-Bundle 'ianva/vim-youdao-translater'
+Bundle 'tpope/vim-fireplace'
+
+"Bundle 'dag/vim2hs'
+Bundle 'scrooloose/syntastic'
+
+"Bundle 'ianva/vim-youdao-translater'
+"
+Bundle 'jceb/vim-orgmode'
+Bundle 'tpope/vim-speeddating'
 
 Bundle 'plasticboy/vim-markdown'
 Bundle 'mileszs/ack.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'terrencehan/rust-vim'
 Bundle 'ctrlp.vim'
+Bundle 'ervandew/supertab'
 Bundle 'AutoClose'
 Bundle 'ZenCoding.vim'
 Bundle 'matchit.zip'
@@ -36,9 +48,11 @@ Bundle 'trailing-whitespace'
 Bundle 'perl-support.vim'
 Bundle 'taglist.vim'
 Bundle 'jimenezrick/vimerl'
-Bundle 'vimwiki'
+Bundle 'vimwiki/vimwiki'
 Bundle 'tpope/vim-fugitive'
 Bundle 'rdnetto/YCM-Generator'
+
+Bundle 'rkitover/perl-vim-mxd'
 
 Bundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup=1
@@ -49,6 +63,7 @@ let g:indent_guides_guide_size=1
 
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key = '<Leader><Leader>'
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 "Fencview的初始设置
 "Bundle 'FencView.vim'
@@ -113,7 +128,7 @@ set cindent
 "set fdm=indent                                      "代码折叠
 set fileencodings=utf-8,gb2312,gbk,gb18030
 set termencoding=utf-8
-set fileformats=unix,dos
+set fileformats=unix
 set encoding=utf-8
 set colorcolumn=85                                  "彩色显示第85行
 "set isk+=-                                          "将-连接符也设置为单词
@@ -132,83 +147,7 @@ set guioptions-=T
 colorscheme jellybeans                                  "设定配色方
 set autochdir                                           "自动切换当前目录为当前文件所在的目录
 
-"插入模式下移动
-inoremap <c-j> <down>
-inoremap <c-k> <up>
-inoremap <c-l> <right>
-inoremap <c-h> <left>
-
 map <leader>tl :Tlist<cr>
-
-
-"-----------------------------------------
-"首先确认安装了ctags和cscope，并且确认这两个可执行程序所在的目录已经放进环境变量里面。（必须做，否则后边都无法操作）
-"在vimrc中配置如下：
-"-----------------------------------------
-"map <F12> :call Do_CsTag()<CR>
-"nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-"nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>:copen<CR>
-"nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"function Do_CsTag()
-    "let dir = getcwd()
-    "if filereadable("tags")
-        "if(g:iswindows==1)
-            "let tagsdeleted=delete(dir."\\"."tags")
-        "else
-            "let tagsdeleted=delete("./"."tags")
-        "endif
-        "if(tagsdeleted!=0)
-            "echohl WarningMsg | echo "Fail to do tags! I cannot delete the tags" | echohl None
-            "return
-        "endif
-    "endif
-    "if has("cscope")
-        "silent! execute "cs kill -1"
-    "endif
-    "if filereadable("cscope.files")
-        "if(g:iswindows==1)
-            "let csfilesdeleted=delete(dir."\\"."cscope.files")
-        "else
-            "let csfilesdeleted=delete("./"."cscope.files")
-        "endif
-        "if(csfilesdeleted!=0)
-            "echohl WarningMsg | echo "Fail to do cscope! I cannot delete the cscope.files" | echohl None
-            "return
-        "endif
-    "endif
-    "if filereadable("cscope.out")
-        "if(g:iswindows==1)
-            "let csoutdeleted=delete(dir."\\"."cscope.out")
-        "else
-            "let csoutdeleted=delete("./"."cscope.out")
-        "endif
-        "if(csoutdeleted!=0)
-            "echohl WarningMsg | echo "Fail to do cscope! I cannot delete the cscope.out" | echohl None
-            "return
-        "endif
-    "endif
-    "if(executable('ctags'))
-        ""silent! execute "!ctags -R --c-types=+p --fields=+S *"
-        "silent! execute "!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ."
-    "endif
-    "if(executable('cscope') && has("cscope") )
-        "if(g:iswindows!=1)
-            "silent! execute "!find . -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.java' -o -name '*.cs' > cscope.files"
-        "else
-            "silent! execute "!dir /s/b *.c,*.cpp,*.h,*.java,*.cs >> cscope.files"
-        "endif
-        "silent! execute "!cscope -b"
-        "execute "normal :"
-        "if filereadable("cscope.out")
-            "execute "cs add cscope.out"
-        "endif
-    "endif
-"endfunction
 
 
 "-----------------------------------------
@@ -232,6 +171,7 @@ let NERDShutUp=1
 "支持单行和多行的选择，//格式
 map <c-h> ,c<space>
 
+
 "-----------------------------------------
 "omniCppComplete
 "----------------------------------------
@@ -241,10 +181,15 @@ map <c-h> ,c<space>
 "-----------------------------------------
 "tags
 "----------------------------------------
-set tags=tags
-set tags+=./tags
-autocmd FileType erlang set tags+=../tags
+set tags=tags;
+"autocmd FileType erlang set tags+=/Users/terrence/work/ptmind/git-svn/02_Service/PtNature/ptnature_ecology/apps/ptnature_ecology/tags
 autocmd FileType c,cpp set tags+=/usr/include/tags
+"autocmd FileType c,cpp set tags+=/Users/terrence/github/terrencehan/otp/tags
+"autocmd FileType c,cpp set tags+=/Users/terrence/vagrant/sync/otp/tags
+"autocmd FileType c,cpp set tags+=/Users/terrence/Downloads/nxlog-ce-2.8.1248/tags
+"autocmd FileType c,cpp set tags+=/Users/terrence/github/balabit/syslog-ng/tags
+"
+autocmd FileType java map <leader>jd :JavaSearchContext<CR>
 
 "-----------------------------------------
 "indent
@@ -294,7 +239,7 @@ map <F3> :WMToggle<CR>   "按下F3就可以呼出了
 "-----------------------------------------
 "indent line
 "-----------------------------------------
-"autocmd FileType erlang set list
+"autocmd FileType python set list
 
 set listchars=tab:\|\ "注意 这里是一个|和一个空格，都转义字符
 
@@ -302,14 +247,10 @@ set listchars=tab:\|\ "注意 这里是一个|和一个空格，都转义字符
 "perl
 "-----------------------------------------
 "map ,pt :%! perltidier
-map ,pt :%! perltidy
+"map ,pt :%! /Users/terrence/perl5/perlbrew/perls/perl-5.20.0/bin/perltidy
+"map ,pt :%! perltidy
+map ,pt :%! /Users/terrence/perl5/bin/perltidier
 
-"-----------------------------------------
-"temp
-"-----------------------------------------
-map ,pp :s/p>/p_zh>/g
-map ,he :s/and/和/g
-map ,ii :s/item>/item_zh>/g
 "-----------------------------------------
 "vimwiki
 "-----------------------------------------
@@ -343,11 +284,6 @@ let g:Powerline_stl_path_style = 'short'
 
 
 "-----------------------------------------
-"Youdao
-"-----------------------------------------
-noremap <leader>yd :Yde<CR>
-
-"-----------------------------------------
 ""YouCompleteMe
 "-----------------------------------------
 
@@ -357,11 +293,50 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "Do not ask when starting vim
 let g:ycm_confirm_extra_conf = 0
 let g:syntastic_always_populate_loc_list = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_collect_identifiers_from_tags_files = 1  " /usr/local/bin/ctags --fields=+l -R ./*
 
 "当离开insert mode的时候如果prv buffer开着就关掉
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+
+
+"-----------------------------------------
+" jedi python补全
+"-----------------------------------------
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_delay = 0
+
+
+"-----------------------------------------
+" startify
+"-----------------------------------------
+let g:startify_list_order = [
+        \ ['   My most recently', '   used files'],
+        \ 'files',
+        \ ['   My most recently used files in the current directory:'],
+        \ 'dir',
+        \ ['   These are my sessions:'],
+        \ 'sessions',
+        \ ['   These are my bookmarks:'],
+        \ 'bookmarks',
+        \ ]
+
+
+"gitv显示全部commit
+let g:Gitv_CommitStep = 9999999999999
+
+
+let g:EclimCompletionMethod = 'omnifunc'
 
 "-----------------------------------------
 "在tab中显示数字编号
